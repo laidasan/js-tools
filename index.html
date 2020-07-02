@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    body {
+        min-height: 3000px;
+    }
+
+    .menu {
+        position: fixed;
+        top: 30px;
+        bottom: 0;
+        min-width: 300px;
+        background: rgba(0,0,0,.3);
+        transform: translate(-100%);
+        transition: all .3s;
+    }
+
+    /* .menu.active {
+        transform: translate(0);
+    } */
+
+    .active .menu {
+        transform: translate(0);
+    }
+
+    .btn--top {
+        position: fixed;
+        bottom: 15px; right: 15px;
+        transition: transform .3s;
+    }
+    .btn--top.hidden {
+        transform: translateY(100%);
+        bottom: 0;
+    }
+
+
+    /* banner */
+    .banner {
+        max-width: 400px;
+        min-height: 300px;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+    }
+/* padding-top */
+    /* absolute */
+
+    .banner-container {
+        font-size: 0;
+        white-space: nowrap;
+        position: absolute;
+        left: 0;
+
+        transition: left 1s;
+    }
+
+    .banner-content {
+        display: inline-block;
+        font-size: 15px;
+        width: 400px;
+        min-height: 300px;
+        background: #00aaaa;
+        color: #fff;
+        line-height: 300px;
+        text-align: center;
+    }
+
+    .banner-control {
+        position: relative;
+        /* top: -300px; */
+        top: 210px;
+    }
+</style>
+
+<body>
+    <header class="header">
+        <button class="menu__button btn--menu">Menu</button>
+        <nav class="menu">
+            <a href="javascript:;">button1</a>
+            <a href="javascript:;">button2</a>
+            <a href="javascript:;">button3</a>
+            <a href="javascript:;">button4</a>
+            <a href="javascript:;">button5</a>
+        </nav>
+    </header>
+    <main>
+        <div class="banner">
+            <div class="banner-container">
+                <div class="banner-content">400 * 300 1</div>
+                <div class="banner-content">400 * 300 2</div>
+                <div class="banner-content">400 * 300 3</div>
+                <div class="banner-content">400 * 300 4</div>
+                <div class="banner-content">400 * 300 5</div>
+            </div>
+
+            <div class="banner-control">
+                <button class="banner-prev">prev</button>
+                <div class="banner-points"></div>
+                <button class="banner-next">next</button>
+            </div>
+        </div>
+    </main>
+    <button class="btn--top hidden">got top</button>
+    <script src="menu.js"></script>
+</body>
+</html>
