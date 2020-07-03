@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
 <style>
@@ -45,45 +46,42 @@
 
 
     /* banner */
-    .banner {
+    /* .banner {
         max-width: 400px;
         min-height: 300px;
         margin: 0 auto;
         overflow: hidden;
         position: relative;
-    }
+    } */
 /* padding-top */
     /* absolute */
 
-    .banner-container {
+    /* .banner-container {
         font-size: 0;
         white-space: nowrap;
         position: absolute;
         left: 0;
-
         transition: left 1s;
     }
 
     .banner-content {
         display: inline-block;
+        width: 100%;
         font-size: 15px;
-        width: 400px;
         min-height: 300px;
         background: #00aaaa;
-        color: #fff;
-        line-height: 300px;
         text-align: center;
     }
 
     .banner-control {
         position: relative;
-        /* top: -300px; */
+        top: -300px;
         top: 210px;
-    }
+    } */
 </style>
 
 <body>
-    <header class="header">
+    <!-- <header class="header">
         <button class="menu__button btn--menu">Menu</button>
         <nav class="menu">
             <a href="javascript:;">button1</a>
@@ -92,25 +90,46 @@
             <a href="javascript:;">button4</a>
             <a href="javascript:;">button5</a>
         </nav>
-    </header>
+    </header> -->
+
+
     <main>
-        <div class="banner">
+        <!-- <div class="banner">
             <div class="banner-container">
-                <div class="banner-content">400 * 300 1</div>
-                <div class="banner-content">400 * 300 2</div>
-                <div class="banner-content">400 * 300 3</div>
-                <div class="banner-content">400 * 300 4</div>
-                <div class="banner-content">400 * 300 5</div>
+                <div class="banner-content show">1</div>
+                <div class="banner-content">2</div>
+                <div class="banner-content">3</div>
+                <div class="banner-content">4</div>
+                <div class="banner-content">5</div>
             </div>
 
             <div class="banner-control">
-                <button class="banner-prev">prev</button>
-                <div class="banner-points"></div>
-                <button class="banner-next">next</button>
+                <button class="banner-prev banner-btn">prev</button>
+                <ul class="banner-points"></ul>
+                <button class="banner-next banner-btn">next</button>
             </div>
+        </div> -->
+        <div class="banner2">
+            <div class="banner2-left"></div>
+            <div class="banner2-right"></div>
+            <div class="banner2-container">
+                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+            </div>
+
+            <!-- <div class="banner-control">
+                <button class="banner-prev banner-btn">prev</button>
+                <ul class="banner-points"></ul>
+                <button class="banner-next banner-btn">next</button>
+            </div> -->
         </div>
     </main>
     <button class="btn--top hidden">got top</button>
-    <script src="menu.js"></script>
+    <!-- <script src="./source/carousel-flyin.js"></script> -->
+    <!-- <script src="./source/easy-tools.js"></script> -->
+    <script src="./source/carousel-circle.js"></script>
 </body>
 </html>
