@@ -8,5 +8,18 @@
         })
     }
     
-    // $topBtn.addEventListener('click', goTop)
+    $topBtn.addEventListener('click', goTop)
+    function toggleTop() {
+        console.log(window.scrollY)
+    
+        if (window.scrollY > 400) {
+            $topBtn.classList.remove('hidden');
+        } else {
+            $topBtn.classList.add('hidden')
+        }
+    }
+
+    window.addEventListener('scroll',debounce(toggleTop))
+    toggleTop()
+
 })()

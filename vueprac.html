@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- {{ index }} -->
+        <span :title="message">hover me</span>
+        <span v-if="seen"> test </span>
+        <p v-for="todo in todos"> {{ todo.text }} </p>
+        <button @click="show">{{btnText}}</button>
+        
+        <p>Message is : {{message}}</p>
+        <!-- <input v-model="message" placeholder="edie me"> -->
+        <!-- <input v-model.lazy="message" placeholder="edie me"> -->
+        <input v-model.number="message" placeholder="edie me">
+
+        <button @click="addItem">{{btnText}}</button>
+        <button @click="changeItem(10)">{{btnText}}</button>
+        <ul>
+            <todo-item v-for="item in groceryList" :todo="item" :key="item.id"></todo-item>
+            <!-- <todo-item v-for="item,index in groceryList" :todo="item" :key="index"></todo-item> -->
+        </ul>
+        <p>{{foo}}</p>
+        <button @click="changeFoo">{{btnText}}</button>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+
+    <script>
+        Vue.component('todo-item',{
+            props: ['todo'],
+            // template:'<li>This is List Item.</li>'
+            template:'<li>{{todo.text}},{{todo.id}}</li>'
+        })
+
+
+        let data = {
+            // index: 0
+            message: 'hello world',
+                seen : true,
+                todos: [
+                    {text:'Learn Javascript'},
+                    {text:'is'},
+                    {text:'very cool'}
+                ],
+                btnText: 'button',
+                groceryList: [
+                    { id: 0, text: 'Vegetables' },
+                    { id: 3, text: '我是插隊的那個' },
+                    { id: 1, text: 'Cheese' },
+                    { id: 2, text: 'Whatever else humans are supposed to eat' }
+                ],
+                foo: 'bar'
+        }
+
+        // Object.freeze(data)
+
+        let app = new Vue({
+            el: '#app',
+            data,
+            methods: {
+                show() {console.log('show test')},
+                addItem() { this.groceryList.push({id:10,text:'test'})},
+                changeItem(id){this.groceryList.find(ele => ele.id === 10) ? this.groceryList.find(ele => ele.id === 10).text='change':''},
+                changeFoo() {
+                    this.foo = 'test chagne'
+                }
+            }
+        })
+
+        // app.message = 'this is new title attr'
+    </script>
+</body>
+</html>

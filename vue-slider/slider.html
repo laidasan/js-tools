@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>09_Slider</title>
+    <link rel="stylesheet" href="./assets/layout.css" />
+    <style>
+      .container {
+        width: 600px;
+        height: 400px;
+        margin: 10px;
+
+        overflow: hidden;
+      }
+      .container > .pic {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        transition: left .5s;
+      }
+
+
+      /* xxx 就是動畫名稱 , 必須要一樣 */
+      /* .xxx-enter,.xxx-leave-to {
+        
+      }
+      .xxx-enter-to,.xxx-leave {
+
+      } */
+
+      .opacity-enter,.opacity-leave-to {
+        opacity: 0 !important;
+      }
+
+      .opacity-enter-to,.opacity-leave {
+        opacity: 1 !important;
+      }
+
+      .opacity-enter-active,.opacity-leave-active {
+        transition: opacity .5s !important;
+      }
+      
+
+
+      .transx-to-right-enter {
+        left: 100% !important;
+      }
+
+      .transx-to-right-leave-to {
+        left: -100% !important;
+      }
+
+      .transx-to-right-enter-to,.transx-to-right-leave {
+        left: 0 !important;
+      }
+
+      .transx-to-right-enter-active,.transx-to-right-leave-active {
+        transition: left .5s !important;
+      }
+
+      .transx-to-left-enter {
+        left: -100% !important;
+      }
+
+      .transx-to-left-leave-to {
+        left: 100% !important;
+      }
+
+      .transx-to-left-enter-to,.transx-to-left-leave {
+        left: 0 !important;
+      }
+
+      .transx-to-left-enter-active,.transx-to-left-leave-active {
+        transition: left .5s !important;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <section>
+        <!-- <div class="container"> -->
+          <!-- <div class="pic" v-for="item in list" :key="item.id" :style="{backgroundImage:'url(' + item.src + ')'}"></div> -->
+          
+          <!-- main -->
+          <!-- <div class="pic" v-for="item in list" :key="item.id" :style="{backgroundImage:getPicStyle(item)}"></div> -->
+
+          <transition-group name="opacity" tag="div" class="container">
+            <div class="pic" v-for="(item,index) in list" :key="item.id" v-show="index === active" :style="getPicStyle(item)"></div>
+          </transition-group>
+
+
+          <!-- main -->
+
+
+          <!-- <div class="pic" v-for="(item , index) in list" :key="item.id" :style="getPicStyleIndex(index)"></div> -->
+
+        <!-- </div> -->
+
+        <div class="container">
+          <!-- :name 可以用綁定的 -->
+          <transition :name="trans" >
+            <div class="pic" :style="activeStyle" :key="activePic.id"></div>
+          </transition>
+        </div>
+
+        <div>
+          <div @click="changeHandler(active - 1)" class="button">前一張</div>
+          <!-- <div class="button" v-for="(item,index) in list"></div> -->
+          <div @click="changeHandler(num - 1)" class="button" :class="{active:active === num - 1}" v-for="num in list.length" :key=" 'b' + num">{{ num }}</div>
+          <div @click="changeHandler(active + 1)" class="button">後一張</div>
+          <!-- <div @click="prevHandler()" class="button">前一張</div>
+          <div @click="nextHandler()" class="button">後一張</div> -->
+        </div>
+      </section>
+    </div>
+    <script src="./assets/vue.js"></script>
+    <script>
+      let states = {
+        active: 0,
+        transDirect: 0,
+        list: [
+          { id: 1, src: "./assets/images/cats/1.jpg" },
+          { id: 2, src: "./assets/images/cats/2.jpg" },
+          { id: 3, src: "./assets/images/cats/3.jpg" },
+          { id: 4, src: "./assets/images/cats/4.jpg" },
+          { id: 5, src: "./assets/images/cats/5.jpg" }
+        ]
+      };
+
+      new Vue({
+        el: '#app',
+        data: states,
+        computed: {
+          activePic() { return this.list[this.active]},
+          activeStyle(){ return {backgroundImage:`url("${this.activePic.src}")`} },
+          trans() {return this.transDirect ? 'transx-to-right' : 'transx-to-left'},
+        },
+
+        methods: {
+          // getPicStyle(item) {
+          //   return `url("${item.src}")`
+          // },
+          getPicStyle(item) {
+            return {
+              background:`url("${item.src}")`
+            }
+          },
+          changeHandler(index) {
+            index > this.active ? this.transDirect = 1 : this.transDirect = 0
+            this.active = (index + this.list.length) % this.list.length
+          },
+          prevHandler() {
+            this.active - 1 < 0 ? '' : this.active -= 1
+          },
+          nextHandler(){
+            this.active + 1 > this.list.length - 1 ? this.active += 1 : ''
+          },
+
+
+          // getPicStyleIndex(index) {
+          //   return {
+          //     background: `url("${list[index].src}")`
+          //   }
+          // },
+
+        }
+      })
+    </script>
+  </body>
+</html>

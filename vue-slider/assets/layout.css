@@ -1,0 +1,130 @@
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+html {
+  color: #34495e;
+  background-color: #41b883;
+  font-family: "微軟正黑體";
+  overflow: hidden;
+  text-align: center;
+}
+#app {
+  position: absolute;
+  white-space: nowrap;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.container {
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+}
+
+h1,
+h2 {
+  color: #ffffff;
+  text-align: center;
+  background-color: #34495e;
+  padding: 10px;
+  border-radius: 10px;
+  white-space: normal;
+}
+
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 20px;
+}
+
+input {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  box-shadow: none;
+  width: calc(100% - 20px);
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 30px;
+  color: #34495e;
+}
+select {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  box-shadow: none;
+  width: calc(50% - 20px);
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 30px;
+  color: #34495e;
+}
+textarea {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  box-shadow: none;
+  width: calc(100% - 20px);
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 30px;
+  color: #34495e;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border: none;
+}
+
+input.file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  font-size: 0;
+  cursor: pointer;
+}
+
+.button {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 20px;
+  margin: 10px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+  color: #34495e;
+  background-color: #ffffff;
+}
+
+.button:hover,
+.button.active {
+  color: #ffffff;
+  background-color: #34495e;
+}
+.button.lock:hover,
+.button.lock {
+  cursor: default;
+  color: #34495e;
+  background-color: #ccc;
+}

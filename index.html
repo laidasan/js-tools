@@ -81,53 +81,125 @@
 </style>
 
 <body>
-    <!-- <header class="header">
-        <button class="menu__button btn--menu">Menu</button>
-        <nav class="menu">
-            <a href="javascript:;">button1</a>
-            <a href="javascript:;">button2</a>
-            <a href="javascript:;">button3</a>
-            <a href="javascript:;">button4</a>
-            <a href="javascript:;">button5</a>
-        </nav>
-    </header> -->
+    <div id="app" class="" :class="{active:menuIsOpen}">
+        <header class="header">
+            <button @click="menuHandler" class="menu__button btn--menu">Menu</button>
+            <nav class="menu">
+                <a href="javascript:;">button1</a>
+                <a href="javascript:;">button2</a>
+                <a href="javascript:;">button3</a>
+                <a href="javascript:;">button4</a>
+                <a href="javascript:;">button5</a>
+            </nav>
+        </header>
+    
+    
+        <main>
+            <!-- <div class="banner">
+                <div class="banner-container">
+                    <div class="banner-content show">1</div>
+                    <div class="banner-content">2</div>
+                    <div class="banner-content">3</div>
+                    <div class="banner-content">4</div>
+                    <div class="banner-content">5</div>
+                </div>
+    
+                <div class="banner-control">
+                    <button class="banner-prev banner-btn">prev</button>
+                    <ul class="banner-points"></ul>
+                    <button @click="show()" class="banner-next banner-btn">next</button>
+                </div>
+            </div> -->
+    
+            <!-- 3d -->
+            <!-- <div class="banner2">
+                <div class="banner2-left"></div>
+                <div class="banner2-right"></div>
+                <div class="banner2-container">
+                    <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                    <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                    <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                    <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                    <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
+                </div>
+            </div> -->
+        </main>
+        <button @click="goTop" class="btn--top" :class="{hidden:topIsShow}">got top</button>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <!-- <script src="./source/carousel-flyin.js"></script> -->
+    <!-- <script src="./source/carousel-circle.js"></script> -->
+    <!-- <script src="./source/carousel.js"></script> -->
+    <!-- <script src="./source/toggleMenu.js"></script> -->
+    <!-- <script src="./source/toggleButton.js"></script> -->
+
+    
+    <script>
+
+        // let data = {
+        //     index : 0,
+        //     nextIndex: 0
+        // }
+
+        // new Vue({
+        //     el: '#app',
+        //     data,
+        //     methods: {
+                
+        //         prevHandler() {
+        //             if (this.nextIndex <= 0) return
+        //             this.nextIndex -= 1
+        //             // banner.changeBannerContent(banner.bannerConfig.nextIndex)
+        //         },
+        //         nextHandler() {
+        //             if(this.nextIndex >= total - 1) return 
+        //             this.nextIndex += 1
+        //         }
+        //     }
+        // })
 
 
-    <main>
-        <!-- <div class="banner">
-            <div class="banner-container">
-                <div class="banner-content show">1</div>
-                <div class="banner-content">2</div>
-                <div class="banner-content">3</div>
-                <div class="banner-content">4</div>
-                <div class="banner-content">5</div>
-            </div>
 
-            <div class="banner-control">
-                <button class="banner-prev banner-btn">prev</button>
-                <ul class="banner-points"></ul>
-                <button class="banner-next banner-btn">next</button>
-            </div>
-        </div> -->
 
-        <!-- 3d -->
-        <div class="banner2">
-            <div class="banner2-left"></div>
-            <div class="banner2-right"></div>
-            <div class="banner2-container">
-                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
-                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
-                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
-                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
-                <div class="banner2-content"><img src="https://fakeimg.pl/400x300/" alt=""></div>
-            </div>
-        </div>
-    </main>
-    <button class="btn--top hidden">got top</button>
-    <script src="./source/carousel-flyin.js"></script>
-    <script src="./source/carousel-circle.js"></script>
-    <script src="./source/carousel.js"></script>
-    <script src="./source/toggleMenu.js"></script>
-    <script src="./source/toggleButton.js"></script>
+
+        // 資料 控制 xxx
+
+        // toggleMenu and toggleTop
+        let data = {
+            index : 0,
+            menuIsOpen :false,
+            topIsShow : false
+        }
+
+        new Vue({
+            el: '#app',
+            data,
+            mounted() {
+                window.addEventListener('scroll',this.scrollHandler)
+            },
+            beforeDestory() {
+                window.removeEventListener('scroll',this.scrollHandler)
+            },
+            methods: {
+                menuHandler() { this.menuIsOpen = !this.menuIsOpen },
+                
+                goTop() {
+                    window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                })},
+
+                scrollHandler() {
+                    if (window.scrollY > 400) {
+                        this.topIsShow = false
+                        console.log('scroll')
+                    } else {
+                        this.topIsShow = true
+                    }
+                }
+            }
+        })
+    </script>
+
 </body>
 </html>

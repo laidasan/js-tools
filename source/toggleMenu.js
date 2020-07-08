@@ -4,4 +4,6 @@
     function toggleMenu(e) {
         document.body.classList.toggle('active')
     }
+
+    $menuBtn.addEventListener('click',toggleMenu)
 })()

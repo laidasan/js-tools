@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .banner {
+            width: 300px;
+            height: 210px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Vue -->
+    <div id="app">
+        <!-- v-html 先不用這個 , 先了解一下 -->
+        {{ index }}
+
+        <!-- <button V-on:click="change(-1)">prev</button>
+        <button V-on:click="change(1)">next</button> -->
+        <button @click="change(-1)">prev</button>
+        <button @click="change(1)">next</button>
+
+        <!-- <div class="banner" v-bind:style={backgroundColor:nowBanner}></div> -->
+        <div class="banner" :style={backgroundColor:nowBanner}></div>
+    </div>
+
+  
+    
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <script>
+
+        // data
+        // 管理資料
+        let data = {
+            index : 0,
+            banners:['red','orange','yellow','green']
+        }
+
+        // VM 
+        // new Vue({})
+        // 處理資料如何運用
+
+        new Vue({
+            
+            data,
+            methods:{
+                change(num) {
+                    // this 指的是 Vue
+
+                    let index = this.index + num
+
+                    // 1
+                    // if(index > this.total-1){
+                    //     // index = this.total -1
+                    //     index = 0
+                    // }else if(index < 0){
+                    //     // index = 0
+                    //     index = this.total - 1
+                    // }
+                    // this.index = index 
+
+
+                    // 2
+                    this.index = index > this.total - 1 ? 0 : index < 0 ?  total - 1 : index
+
+                    // this.index = this.index + num
+                }
+            },
+
+            // data 產 資料 , 不要無中生有
+            computed:{
+                total(){
+                    // 會 return 到 data 
+                    return this.banners.length
+                },
+                nowBanner() {
+                    return this.banners[this.index]
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>
