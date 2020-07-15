@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>09_Slider</title>
+    <link rel="stylesheet" href="./assets/layout.css" />
+    <style>
+      .container {
+        width: 600px;
+        height: 400px;
+        margin: 10px;
+        overflow: hidden;
+      }
+      .container > .pic {
+        position: absolute;
+        top: 0;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+      }
+
+      .opacity-enter,.opacity-leave-to{
+        opacity: 0;
+      }
+
+      .opacity-enter-to,.opacity-leave{
+        opacity: 1;
+      }
+
+      .opacity-enter-active,.opacity-leave-active{
+        transition: opacity 0.5s;
+      }
+
+
+      .move-left-enter{
+        left: 100% !important;
+      }
+      .move-left-leave-to{
+        left: -100% !important;
+      }
+
+      .move-left-enter-to,.move-left-leave{
+        left: 0% !important;
+      }
+
+      .move-left-enter-active,.move-left-leave-active{
+        transition: left 0.5s;
+      }
+      .move-right-enter{
+        left: -100% !important;
+      }
+      .move-right-leave-to{
+        left: 100% !important;
+      }
+
+      .move-right-enter-to,.move-right-leave{
+        right: 0% !important;
+      }
+
+      .move-right-enter-active,.move-right-leave-active{
+        transition: left 0.5s;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <section>
+          <transition-group name="opacity" tag="div" class="container">
+            <div class="pic" v-for="(item,index) in list" :key="item.id" v-show="index === active" :style="getPicStyle(item)"></div>
+          </transition-group>
+        <div class="container">
+          <transition :name="animation">
+            <div class="pic" :style="activeStyle" :key="activePic.id"></div>
+          </transition>
+        </div>
+        <div @mouseenter="inHandler" @mouseleave="outHandler">
+          <div class="button" @click="prev">前一張</div>
+          <!-- <div class="button" v-for="(item,index) in list"></div> -->
+          <div class="button" v-for="num in list.length" :key="'b'+num" @click="changeHandler(num-1)" :class="{active:active === num-1}">{{ num }}</div>
+          <div class="button" @click="next">後一張</div>
+        </div>
+      </section>
+    </div>
+    <script src="./assets/vue.js"></script>
+    <script>
+      let states = {
+        active: 0,
+        list: [
+          { id: 1, src: "./assets/images/cats/1.jpg" },
+          { id: 2, src: "./assets/images/cats/2.jpg" },
+          { id: 3, src: "./assets/images/cats/3.jpg" },
+          { id: 4, src: "./assets/images/cats/4.jpg" },
+          { id: 5, src: "./assets/images/cats/5.jpg" }
+        ],
+        animation:"move-left"
+      };
+      let timer;
+      let timerTime = 3000
+      new Vue({
+        el:"#app",
+        data:states,
+        mounted(){
+          this.outHandler()
+          // setTimeout(fun, timeout);
+        },
+        beforeDestroy(){
+          this.inHandler()
+          // clearTimeout(name)
+        },
+        computed:{
+          activePic(){
+            return this.list[this.active]
+          },
+          activeStyle(){
+            return {
+              backgroundImage:`url("${this.activePic.src}")`
+            }
+          }
+        },
+        methods:{
+          inHandler(){
+            clearTimeout(timer)
+          },
+          outHandler(){
+            this.inHandler()
+            timer = setTimeout(this.timeoutHandler,timerTime)
+          },
+          timeoutHandler(){
+            this.next()
+            this.outHandler()
+          },
+          next(){
+            this.animation = "move-left"
+            this.changeHandler(this.active + 1)
+          },
+          prev(){
+            this.animation = "move-right"
+            this.changeHandler(this.active - 1)
+          },
+          changeHandler(index){
+            if(this.active === index ) return 
+            this.animation = index > this.active ? "move-left" : "move-right"
+            this.active = (index + this.list.length) % this.list.length
+          },
+          getPicStyle(item){
+            return {
+              backgroundImage:`url("${item.src}")`
+            }
+          },
+          getPicStyleByIndex(index){
+            return {
+              backgroundImage:`url("${this.list[index].src}")`
+            }
+          }
+        }
+      })
+
+    </script>
+  </body>
+</html>

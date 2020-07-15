@@ -110,7 +110,14 @@
           </transition>
         </div>
 
-        <div>
+        <!-- enter / leave -->
+        <!-- 在乎 currentTarget -->
+        <!--  -->
+
+        <!-- over / out  -->
+        <!-- 只要 target 都會觸發 , 每個 target 都會觸發 -->
+
+        <div @mouseenter="inHandler" @mouseleave="outHandler">
           <div @click="changeHandler(active - 1)" class="button">前一張</div>
           <!-- <div class="button" v-for="(item,index) in list"></div> -->
           <div @click="changeHandler(num - 1)" class="button" :class="{active:active === num - 1}" v-for="num in list.length" :key=" 'b' + num">{{ num }}</div>
@@ -122,6 +129,9 @@
     </div>
     <script src="./assets/vue.js"></script>
     <script>
+
+      let timeout = null
+      let timeoutTime = 3000
       let states = {
         active: 0,
         transDirect: 0,
@@ -137,6 +147,14 @@
       new Vue({
         el: '#app',
         data: states,
+        mounted(){
+          // timeout = setInterval(this.next,timeoutTime)
+          this.outHandler()
+        },
+        beforeDestory() {
+          // clearInterval(timeout)
+          this.inHandler()
+        },
         computed: {
           activePic() { return this.list[this.active]},
           activeStyle(){ return {backgroundImage:`url("${this.activePic.src}")`} },
@@ -144,18 +162,41 @@
         },
 
         methods: {
+          next() {
+            this.changeHandler(this.active + 1)
+          },
           // getPicStyle(item) {
           //   return `url("${item.src}")`
           // },
+
+          inHandler() {
+            // clearInterval(timeout);
+            clearTimeout(timeout);
+          },
+          outHandler() {
+            // 確保所有計時器都已清除
+            this.inHandler() 
+            // timeout = setInterval(this.next,timeoutTime)
+            timeout = setTimeout(this.timeoutHandler,timeoutTime)
+          },
+          timeoutHandler() {
+            this.next()
+            this.outHandler()
+          },
           getPicStyle(item) {
             return {
               background:`url("${item.src}")`
             }
           },
+
           changeHandler(index) {
+            if(this.active === index ) return
+
+            
             index > this.active ? this.transDirect = 1 : this.transDirect = 0
             this.active = (index + this.list.length) % this.list.length
           },
+          
           prevHandler() {
             this.active - 1 < 0 ? '' : this.active -= 1
           },
