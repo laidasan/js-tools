@@ -69,3 +69,9 @@ Dad.prototype.spendMoney  = function(Operat,price) {
 }
 console.log(Dad.prototype === Person.prototype)
 
+
+console.log('this')
+console.log('this')
+console.log('this')
+console.log('this')
+console.log('this')
